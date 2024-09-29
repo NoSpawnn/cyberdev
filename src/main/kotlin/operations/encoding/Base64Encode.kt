@@ -11,7 +11,11 @@ class Base64Encode : Operation() {
     override val listText = "To Base64"
 
     @OptIn(ExperimentalEncodingApi::class)
-    override fun perform(input: String): String = Base64.Default.encode(input.encodeToByteArray()).toString()
+    override fun perform(input: String): String =
+        Base64
+            .Default
+            .encode(input.encodeToByteArray())
+            .toString()
 
     override fun getListCellRendererComponent(
         list: JList<*>?, value: Any?, index: Int, selected: Boolean, hasFocus: Boolean
