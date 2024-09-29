@@ -12,7 +12,7 @@ class HexDecode : Operation() {
     override fun perform(input: String): String =
         input
             .chunked(3)
-            .map { c -> c.trim().toInt(16).toChar() }
+            .map { it.trim().toInt(16).toChar() }
             .joinToString("")
 
     override fun getListCellRendererComponent(
