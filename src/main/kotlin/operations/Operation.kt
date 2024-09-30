@@ -2,13 +2,15 @@ package com.nospawnn.operations
 
 import java.awt.Component
 import javax.swing.DefaultListCellRenderer
+import javax.swing.JLabel
 import javax.swing.JList
+import javax.swing.ListCellRenderer
+import javax.swing.tree.TreeNode
 
-abstract class Operation : DefaultListCellRenderer() {
+abstract class Operation {
     abstract val listText: String
 
     abstract fun perform(input: String): String
-    abstract override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, hasFocus: Boolean
-    ): Component
+
+    override fun toString(): String = listText
 }

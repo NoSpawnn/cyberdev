@@ -17,8 +17,4 @@ class Base64Decode : Operation() {
             .decode(input.encodeToByteArray())
             .decodeToString()
 
-    override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, hasFocus: Boolean
-    ): Component = JLabel(listText)
-
 }

@@ -15,9 +15,4 @@ class HexEncode : Operation() {
             .toByteArray()
             .joinToString(" ") { String.format("%02x", it) }
 
-
-    override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, hasFocus: Boolean
-    ): Component = JLabel(listText)
-
 }

@@ -15,8 +15,4 @@ class HexDecode : Operation() {
             .map { it.trim().toInt(16).toChar() }
             .joinToString("")
 
-    override fun getListCellRendererComponent(
-        list: JList<*>?, value: Any?, index: Int, selected: Boolean, hasFocus: Boolean
-    ): Component = JLabel(listText)
-
 }
