@@ -16,6 +16,8 @@ class MainView : JFrame() {
     private val stepsPane = StepsListPane(stepsList)
     private val operationsPane = OperationsPane(stepsList)
 
+    private var inputText = ""
+
     init {
         createUI()
     }
@@ -55,10 +57,19 @@ class MainView : JFrame() {
     }
 
     fun updateOutput() {
-        var text = textPane.getInput()
+        inputText = textPane.getInput()
 
-        for (op in (stepsList.model as DefaultListModel<Operation>).elements()) text = op.perform(text)
+        var output = inputText
+        for (op in (stepsList.model as DefaultListModel<Operation>).elements()) {
+            try {
+                output = op.perform(output)
+            } catch (e: Exception) {
+                println(e)
+                textPane.displayOutputText("Invalid input for step \"${op}\"")
+                return
+            }
+        }
 
-        textPane.setOutput(text)
+        textPane.displayOutputText(output)
     }
 }

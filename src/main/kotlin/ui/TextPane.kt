@@ -59,7 +59,7 @@ class TextPane : JPanel() {
 
     fun getInput(): String = inputTextBox.text
 
-    fun setOutput(text: String) {
+    fun displayOutputText(text: String) {
         outputTextBox.text = text
     }
 }

@@ -6,6 +6,7 @@ import javax.swing.JLabel
 import javax.swing.JList
 import javax.swing.ListCellRenderer
 import javax.swing.tree.TreeNode
+import kotlin.jvm.Throws
 
 abstract class Operation {
     abstract val listText: String
