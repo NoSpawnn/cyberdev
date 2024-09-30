@@ -12,8 +12,7 @@ import javax.swing.JPanel
 
 class MainView : JFrame() {
     private val textPane = TextPane()
-    private val stepsListModel = DefaultListModel<Operation>()
-    private val stepsList = JList<Operation>(stepsListModel)
+    private val stepsList = JList<Operation>(DefaultListModel<Operation>())
     private val stepsPane = StepsListPane(stepsList)
     private val operationsPane = OperationsPane(stepsList)
 
@@ -25,7 +24,7 @@ class MainView : JFrame() {
         this.apply {
             title = "CyberDev"
             defaultCloseOperation = EXIT_ON_CLOSE
-            preferredSize = Dimension(1280, 720)
+            minimumSize = Dimension(1280, 720)
             contentPane = JPanel().apply {
                 layout = GridBagLayout()
             }

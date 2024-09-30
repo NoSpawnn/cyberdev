@@ -58,7 +58,7 @@ class OperationsPane(private val stepsList: JList<Operation>) : JPanel() {
             for (op in opList) sectionNode.add(DefaultMutableTreeNode(op.listText))
             root.add(sectionNode)
         }
-
+        
         sidePanelTree = JTree(root).apply {
             showsRootHandles = true
             isRootVisible = false
@@ -67,7 +67,9 @@ class OperationsPane(private val stepsList: JList<Operation>) : JPanel() {
                 override fun mouseClicked(e: MouseEvent) {
                     if (e.clickCount != 2) return;
 
-                    val selected = lastSelectedPathComponent as DefaultMutableTreeNode
+                    val selected =
+                        if (lastSelectedPathComponent == null) return
+                        else lastSelectedPathComponent as DefaultMutableTreeNode
 
                     if (!selected.isLeaf) return
 

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout
 import java.awt.Insets
 import javax.swing.JLabel
 import javax.swing.JPanel
+import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import javax.swing.event.DocumentEvent
 import javax.swing.event.DocumentListener
@@ -15,8 +16,8 @@ class TextPane : JPanel() {
         lineWrap = true
         document.addDocumentListener(object : DocumentListener {
             override fun insertUpdate(e: DocumentEvent?) = (topLevelAncestor as MainView).updateOutput()
-            override fun removeUpdate(e: DocumentEvent?) = (topLevelAncestor as MainView).updateOutput()
-            override fun changedUpdate(e: DocumentEvent?) {}
+            override fun removeUpdate(e: DocumentEvent?) = this.insertUpdate(e)
+            override fun changedUpdate(e: DocumentEvent?) = this.insertUpdate(e)
         })
     }
     private val outputLabel = JLabel("Output")
@@ -44,7 +45,7 @@ class TextPane : JPanel() {
 
         gbc.fill = GridBagConstraints.BOTH
         gbc.weighty = 1.0
-        this.add(inputTextBox, gbc)
+        this.add(JScrollPane(inputTextBox), gbc)
 
         gbc.weighty = 0.0
         gbc.fill = GridBagConstraints.HORIZONTAL
@@ -53,7 +54,7 @@ class TextPane : JPanel() {
         gbc.insets = Insets(0, 0, 0, 0)
         gbc.fill = GridBagConstraints.BOTH
         gbc.weighty = 1.0
-        this.add(outputTextBox, gbc)
+        this.add(JScrollPane(outputTextBox), gbc)
     }
 
     fun getInput(): String = inputTextBox.text
