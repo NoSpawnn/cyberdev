@@ -16,7 +16,7 @@ import javax.swing.JTextField
 import javax.swing.JTree
 import javax.swing.tree.DefaultMutableTreeNode
 
-class OperationsPane(private val stepsList: JList<Operation>) : JPanel() {
+class OperationsPane(private val stepsList: JList<Operation>, private val configPane: ArgumentEditorPane) : JPanel() {
     private val searchBox = JTextField()
     private val operationsLabel = JLabel("Operations")
 
@@ -55,17 +55,17 @@ class OperationsPane(private val stepsList: JList<Operation>) : JPanel() {
 
         for ((key, opList) in OperationsList.operations) {
             val sectionNode = DefaultMutableTreeNode(key)
-            for (op in opList) sectionNode.add(DefaultMutableTreeNode(op.listText))
+            for (op in opList) sectionNode.add(DefaultMutableTreeNode(op.toString()))
             root.add(sectionNode)
         }
-        
+
         sidePanelTree = JTree(root).apply {
             showsRootHandles = true
             isRootVisible = false
 
             addMouseListener(object : MouseListener {
                 override fun mouseClicked(e: MouseEvent) {
-                    if (e.clickCount != 2) return;
+                    if (e.clickCount != 2) return
 
                     val selected =
                         if (lastSelectedPathComponent == null) return
@@ -75,9 +75,11 @@ class OperationsPane(private val stepsList: JList<Operation>) : JPanel() {
 
                     val op = OperationsList
                         .operations[selected.parent.toString()]
-                        ?.find { it.listText == selected.toString() }!!
+                        ?.find { it.toString() == selected.toString() }!!
 
                     (stepsList.model as DefaultListModel<Operation>).addElement(op)
+                    configPane.addArgsFor(op.toString(), op.requiredArgs)
+                    configPane.setDisplayedArgs(op.toString())
                     (topLevelAncestor as MainView).updateOutput()
                 }
 

@@ -11,8 +11,10 @@ import javax.swing.JLabel
 import javax.swing.JList
 import javax.swing.JPanel
 import javax.swing.JScrollPane
+import javax.swing.event.ListSelectionEvent
+import javax.swing.event.ListSelectionListener
 
-class StepsListPane(private val stepsList: JList<Operation>) : JPanel() {
+class StepsListPane(private val stepsList: JList<Operation>, private val configPane: ArgumentEditorPane) : JPanel() {
     private val stepsListScroll = JScrollPane(stepsList)
     private val stepsListLabel = JLabel("Steps")
 
@@ -35,7 +37,9 @@ class StepsListPane(private val stepsList: JList<Operation>) : JPanel() {
 
         stepsList.addMouseListener(object : MouseListener {
             override fun mouseClicked(e: MouseEvent) {
-                if (e.clickCount != 2) return;
+                if (e.clickCount != 2 || stepsList.selectedValue == null) return
+                configPane.removeArgsFor(stepsList.selectedValue.toString())
+                configPane.setDisplayedArgs("") // Clear displayed args
                 (stepsList.model as DefaultListModel<Operation>).remove(stepsList.selectedIndex)
                 (topLevelAncestor as MainView).updateOutput()
             }
@@ -44,6 +48,12 @@ class StepsListPane(private val stepsList: JList<Operation>) : JPanel() {
             override fun mouseReleased(e: MouseEvent?) {}
             override fun mouseEntered(e: MouseEvent?) {}
             override fun mouseExited(e: MouseEvent?) {}
+        })
+        stepsList.addListSelectionListener(object : ListSelectionListener {
+            override fun valueChanged(e: ListSelectionEvent?) {
+                if (stepsList.selectedValue == null) return
+                configPane.setDisplayedArgs(stepsList.selectedValue.toString())
+            }
         })
 
         gbc.weighty = 1.0

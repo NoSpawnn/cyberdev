@@ -12,6 +12,8 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
 
+    implementation(kotlin("reflect"))
+
     val flatlaf = "3.5.1"
     implementation("com.formdev:flatlaf:${flatlaf}")
     implementation("com.formdev:flatlaf:${flatlaf}.:linux-x86_64@so")

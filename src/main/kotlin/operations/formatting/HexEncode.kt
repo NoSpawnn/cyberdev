@@ -1,16 +1,11 @@
-package com.nospawnn.operations.encoding
+package com.nospawnn.operations.formatting
 
 import com.nospawnn.operations.Operation
-import java.awt.Component
-import javax.swing.JLabel
-import javax.swing.JList
 import kotlin.io.encoding.ExperimentalEncodingApi
 
-class HexEncode : Operation() {
-    override val listText = "To Hex"
-
+class HexEncode : Operation("To Hex") {
     @OptIn(ExperimentalEncodingApi::class)
-    override fun perform(input: String): String =
+    override fun runThis(input: String, opts: Map<String, Any>): String =
         input
             .toByteArray()
             .joinToString(" ") { String.format("%02x", it) }

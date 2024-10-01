@@ -1,17 +1,12 @@
-package com.nospawnn.operations.encoding
+package com.nospawnn.operations.formatting
 
 import com.nospawnn.operations.Operation
-import java.awt.Component
-import javax.swing.JLabel
-import javax.swing.JList
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
-class Base64Encode : Operation() {
-    override val listText = "To Base64"
-
+class Base64Encode : Operation("To Base64") {
     @OptIn(ExperimentalEncodingApi::class)
-    override fun perform(input: String): String =
+    override fun runThis(input: String, opts: Map<String, Any>): String =
         Base64
             .Default
             .encode(input.encodeToByteArray())

@@ -1,17 +1,26 @@
 package com.nospawnn.operations
 
-import java.awt.Component
-import javax.swing.DefaultListCellRenderer
-import javax.swing.JLabel
-import javax.swing.JList
-import javax.swing.ListCellRenderer
-import javax.swing.tree.TreeNode
-import kotlin.jvm.Throws
+abstract class Operation(private val listText: String) {
+    open val requiredArgs: Map<String, Any> = mapOf()
 
-abstract class Operation {
-    abstract val listText: String
+    fun perform(input: String, opts: Map<String, Any>?): String {
+        if (!areValidArgs(opts)) {
+            println("Invalid args for \"$listText\":\n  Given $opts\n  Required $requiredArgs")
+            return ""
+        }
 
-    abstract fun perform(input: String): String
+        return runThis(input, opts!!)
+    }
+
+    abstract fun runThis(input: String, opts: Map<String, Any>): String
+
+    fun areValidArgs(passedArgs: Map<String, Any>?): Boolean {
+        if ((passedArgs == null || passedArgs.isEmpty()) && requiredArgs.isEmpty()) return true
+        if (passedArgs!!.size != requiredArgs.size) return false
+        return passedArgs
+            .filterNot { (k, _) -> requiredArgs.containsKey(k) }
+            .isEmpty()
+    }
 
     override fun toString(): String = listText
 }
