@@ -19,5 +19,6 @@ public class MainView extends JFrame {
         textPanel.addListener(stepsPanel);
 
         pack();
+        setLocationRelativeTo(null);
     }
 }
