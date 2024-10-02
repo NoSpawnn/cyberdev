@@ -1,16 +1,21 @@
 plugins {
     kotlin("jvm") version "2.0.20"
+    id("io.github.file5.guidesigner") version "1.0.2"
 }
 
 group = "com.nospawnn"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    maven {
+        url = uri("https://cache-redirector.jetbrains.com/intellij-dependencies")
+    }
     mavenCentral()
 }
 
 dependencies {
     testImplementation(kotlin("test"))
+    runtimeOnly("com.jetbrains.intellij.java:java-gui-forms-rt:242.22855.106")
 
     implementation(kotlin("reflect"))
 

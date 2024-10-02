@@ -8,7 +8,7 @@ import javax.swing.UIManager
 fun main() {
     SwingUtilities.invokeLater {
         UIManager.setLookAndFeel(FlatDarkLaf())
-        var ui = MainView()
+        val ui = MainView()
         ui.isVisible = true
     }
 }
